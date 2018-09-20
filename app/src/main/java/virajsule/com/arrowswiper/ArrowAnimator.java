@@ -2,6 +2,7 @@ package virajsule.com.arrowswiper;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.media.Image;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
@@ -10,15 +11,15 @@ import android.widget.ImageView;
 public class ArrowAnimator extends Thread {
 
     private float t;
-    private ImageView image;
+    private Rect rect;
     private Activity activity;
     private long lastTime;
     private long endTime;
 
 
-    public ArrowAnimator(float time, ImageView imageView, Activity a, float duration){
+    public ArrowAnimator(float time, Rect r, Activity a, float duration){
         t = time;
-        image = imageView;
+        rect=r;
         activity = a;
         endTime = (long) duration;
 
