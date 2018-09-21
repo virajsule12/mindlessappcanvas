@@ -12,16 +12,19 @@ import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.provider.ContactsContract;
 import android.support.constraint.solver.widgets.Rectangle;
+import android.view.SurfaceView;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class MyCanvas extends View{
 
     Paint paint;
     Rect rect;
+    private Canvas canvas;
     private ArrayList<Bitmap> arrows = new ArrayList<>();
     private ArrayList<Bitmap> movingArrows= new ArrayList<>();
     private ArrayList<ImageView> arrowsImg = new ArrayList<>();
@@ -50,6 +53,14 @@ public class MyCanvas extends View{
     @Override
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
+        this.canvas = canvas;
+        GameLoop l = new GameLoop(this, 1);
+        l.start();
+
+
+    }
+
+    public void animateLoop(){
         arrowsx.add(50f);
         arrowsx.add(325f);
         arrowsx.add((float)canvas.getWidth()-300-arrows.get(3).getWidth());
@@ -69,7 +80,7 @@ public class MyCanvas extends View{
         canvas.drawBitmap(line, 0, canvas.getHeight()/2-100, null);
         createArrows(canvas);
 
-
+        System.out.println("hi");
     }
 
 
@@ -95,19 +106,13 @@ public class MyCanvas extends View{
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(3);
             int arrowNum = (int) Math.floor(Math.random()*4);
-            Rect u = new Rect(50,500, 240, 200);
+            Rect u = createRectangle(10, 10, 190, 190);
             canvas.drawRect(u,paint);
+//
+//            Rect r = new Rect(50,10, 240, 200);
+//            canvas.drawRect(r,paint);
 
-            Rect r = new Rect(50,10, 240, 200);
-            canvas.drawRect(r,paint);
 
-
-            rect.top=500;
-            rect.left=50;
-            rect.right=240;
-            rect.bottom=200;
-
-            canvas.drawRect(rect,paint);
 
 //            new CountDownTimer(2000, 100) {
 //
@@ -174,7 +179,9 @@ public class MyCanvas extends View{
 //
 //    }
 
-
+    private Rect createRectangle(int x, int y, int w, int h){
+        return new Rect(x, y, x + w, y + h);
+    }
 
 
 
