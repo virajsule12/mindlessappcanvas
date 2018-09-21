@@ -1,11 +1,13 @@
 package virajsule.com.arrowswiper;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Rect;
 import android.os.CountDownTimer;
 import android.provider.ContactsContract;
@@ -70,27 +72,93 @@ public class MyCanvas extends View{
 
     }
 
-    public void createArrows(Canvas canvas){
+
+    public void paint(Canvas canvas, Rect rectangle) {
+        paint.setColor(Color.BLACK);
+        paint.setStrokeWidth(3);
+
+        for(float i = 10; i<=500; i++){
+            System.out.println(rectangle.top);
+            float l = rectangle.left;
+            float t = rectangle.top;
+            float r = rectangle.width();
+            float b = rectangle.height();
+            rectangle.isEmpty();
+            canvas.drawRect(l,t,r,b,paint);
+
+
+        }
+    }
+
+    public void createArrows(final Canvas canvas){
         if (continueGame){
             paint.setColor(Color.BLACK);
             paint.setStrokeWidth(3);
             int arrowNum = (int) Math.floor(Math.random()*4);
-            rect = new Rect();
+            Rect u = new Rect(50,500, 240, 200);
+            canvas.drawRect(u,paint);
 
-
-            final Rect r = new Rect(50,10, 240, 200);
+            Rect r = new Rect(50,10, 240, 200);
             canvas.drawRect(r,paint);
 
-            new CountDownTimer(3000, 100) {
 
-                public void onTick(long millisUntilFinished) {
-                    r.bottom+=100;
-                }
+            rect.top=500;
+            rect.left=50;
+            rect.right=240;
+            rect.bottom=200;
 
-                public void onFinish() {
+            canvas.drawRect(rect,paint);
 
-                }
-            }.start();
+//            new CountDownTimer(2000, 100) {
+//
+//                public void onTick(long millisUntilFinished) {
+//
+//                }
+//
+//                public void onFinish() {
+//                    System.out.println(lineBottom);
+//
+//                    while ((float)r.top<lineBottom){
+//                        System.out.println(r.top);
+//                        new CountDownTimer(500, 100) {
+//
+//                            public void onTick(long millisUntilFinished) {
+//
+//                            }
+//
+//                            public void onFinish() {
+//                                r.top+=5;
+//                                r.bottom+=5;
+//                                canvas.drawRect(r,paint);
+//
+//                            }
+//                        }.start();
+//                    }
+//
+//                }
+//            }.start();
+
+
+
+
+//            System.out.println(r.left);
+//            ArrowAnimator arrowAnimator = new ArrowAnimator(10f, r, this, 3000f);
+//            arrowAnimator.start();
+//            Path path = new Path();
+//            path.lineTo(100,100);
+//            ObjectAnimator.ofFloat(arrowsImg.get(0), 100f,100f, path).start();
+//            ObjectAnimator.o
+
+//            new CountDownTimer(3000, 100) {
+//
+//                public void onTick(long millisUntilFinished) {
+//                    r.bottom+=100;
+//                }
+//
+//                public void onFinish() {
+//
+//                }
+//            }.start();
 //            canvas.drawRect(arrowsx.get(arrowNum),10f,arrowsx.get(arrowNum)+190f,190f,paint);
 
 //            canvas.drawBitmap(arrows.get(arrowNum), arrowsx.get(arrowNum), 0, null);
@@ -101,10 +169,12 @@ public class MyCanvas extends View{
 
     }
 
-    public void animateArrows(){
+//    public void animateArrows(){
+//
+//
+//    }
 
 
-    }
 
 
 

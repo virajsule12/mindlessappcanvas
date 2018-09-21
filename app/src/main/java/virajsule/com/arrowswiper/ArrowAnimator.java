@@ -12,18 +12,35 @@ public class ArrowAnimator extends Thread {
 
     private float t;
     private Rect rect;
-    private Activity activity;
+    private MyCanvas myCanvas;
     private long lastTime;
     private long endTime;
 
 
-    public ArrowAnimator(float time, Rect r, Activity a, float duration){
+    public ArrowAnimator(float time, Rect r, MyCanvas mc, float duration){
         t = time;
         rect=r;
-        activity = a;
+        myCanvas = mc;
         endTime = (long) duration;
 
     }
+
+
+    private Runnable myRunnable = new Runnable() {
+        @Override
+        public void run() {
+            rect.top+=5;
+            rect.bottom+=5;
+        }
+    };
+
+    private Runnable secondRunnable = new Runnable() {
+        @Override
+        public void run() {
+            rect.setEmpty();
+        }
+    };
+
 
     public void run(){
         lastTime = System.currentTimeMillis();
@@ -31,22 +48,18 @@ public class ArrowAnimator extends Thread {
         while(true){
             if(System.currentTimeMillis() - lastTime >= t){
                 lastTime = System.currentTimeMillis();
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        image.setY(image.getY()+5);
-                        System.out.println(image.getY());
-                    }
-                });
+                myCanvas.postDelayed(myRunnable,500);
 
             }
             if (System.currentTimeMillis()>= endTime){
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        image.setVisibility(View.INVISIBLE);
-                    }
-                });
+                myCanvas.postDelayed(secondRunnable,500);
+//                activity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        rect.setEmpty();
+//                        image.setVisibility(View.INVISIBLE);
+//                    }
+//                });
                 break;
             }
 
